@@ -1,8 +1,9 @@
 import { RECIPES } from "./data/recipes.js";
 import { cardFactory } from "./components/card.js";
 import { filter } from "./utilities/search.js";
-import {displayTextDropDown} from "./utilities/tags.js";
-import {getDropDownIngredient} from "./utilities/tags.js";
+// import { displayInputTextDropDown } from "./utilities/tags.js";
+// import { displayTagList } from "./utilities/tags.js";
+import ListContent from "./utilities/tags.js";
 
 function displayCard(RECIPES) {
     const cardSection = document.querySelector(".card_section");
@@ -17,8 +18,12 @@ function displayCard(RECIPES) {
 function init() {
     displayCard(RECIPES)
     filter()
-    displayTextDropDown()
-    getDropDownIngredient()
+    let ingredients = new ListContent('ingredients')
+    let appliances = new ListContent('appliances')
+    let ustensils = new ListContent('ustensils')
+
+    // displayInputTextDropDown()
+    // displayTagList()
 }
 
 init()

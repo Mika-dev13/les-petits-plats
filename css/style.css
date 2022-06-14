@@ -11118,15 +11118,25 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-.text-search-filter {
+.search-tag-container {
+  width: 170px;
+  height: 69px;
+}
+
+.search-tag-content, .text-search-filter {
   cursor: pointer;
 }
 
 .input-search-filter {
+  z-index: 300;
   outline: none;
   width: 170px;
   height: 69px;
   cursor: pointer;
+}
+
+.input-search-filter::placeholder {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .tag-list {
@@ -11134,14 +11144,24 @@ textarea.form-control-lg {
   grid-template-columns: 1fr 1fr 1fr;
   gap: 10px 20px;
   position: absolute;
-  top: 0;
+  top: 63px;
   left: 0;
   z-index: 200;
-  width: 50vw;
+  width: 100%;
 }
 
 .tag-list li {
+  padding: 5px 10px;
   list-style: none;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.tag-list li:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 article {
