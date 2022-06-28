@@ -11128,7 +11128,6 @@ textarea.form-control-lg {
 }
 
 .input-search-filter {
-  z-index: 300;
   outline: none;
   width: 170px;
   height: 69px;

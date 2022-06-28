@@ -1,43 +1,50 @@
 import { RECIPES } from "../data/recipes.js";
 
-const tagList = document.querySelector(".tag-list");
-
 export default class ListContent {
 
     constructor(nameTag) {
-        this.nameTag = nameTag
-        this.dataList = []
+        
         this.dropDownContainer = document.getElementById(nameTag);
         this.tagList = document.querySelector(`#${nameTag} ul`);
         this.searchTagContent = document.querySelector(`#${nameTag} .search-tag-content`);
         this.inputDropDown = document.querySelector(`#${nameTag} .input-search-filter`);
         this.textDropDown = document.querySelector(`#${nameTag} .text-search-filter`);
-        this.liTagList = document.querySelectorAll(".tag-list li");
+        this.iconDropDown = document.querySelector(`#${nameTag} i`);
+
+        this.nameTag = nameTag
+        this.dataList = []
+        this.liTexContent = "";
+        this.colorTag = "bg-primary"
+        this.init()
+    }
+
+    init() {
         this.getData()
         this.render()
-        console.log(this.tagList)
+        this.selectTagInList()
+        this.displayTagList()
     }
 
     getData(){
         switch (this.nameTag) {
             case "ingredients":
                 this.dataList = this.dataIngredientList
+                this.colorTag = "bg-primary"
                 break;
         
             case "appliances":
                 this.dataList = this.dataApplianceList
+                this.colorTag = "bg-danger"
                 break;
 
             case "ustensils":
                 this.dataList = this.dataUstensilList
+                this.colorTag = "bg-success"
                 break;
 
             default:
                 break;
         }
-        this.displayTagList()
-        this.displayInputTextDropDown()
-        this.closeTagList()
     }
 
     get dataIngredientList() {
@@ -90,102 +97,114 @@ export default class ListContent {
             tagListElement.textContent = elem
             this.tagList.appendChild(tagListElement);
         }
-        return tagList;
     }
 
     displayTagList() {
-        this.searchTagContent.addEventListener("click", ()=> {
-            this.tagList.classList.remove("d-none")
-            this.dropDownContainer.style.width = "100%"
-        })
-    }
-
-    displayInputTextDropDown() {
-
-        this.searchTagContent.addEventListener("click", () => {
+        this.searchTagContent.addEventListener("click", (e)=> {
             
-            this.inputDropDown.classList.remove("d-none")
-            this.textDropDown.classList.add("d-none")
-    
+            this.openTagList()
+            console.log("open 1")
+            this.closeTagList()
         })
     }
+
+    openTagList(){
+        this.tagList.classList.remove("d-none")
+        this.dropDownContainer.style.width = "100%"
+        this.iconDropDown.classList.add("bi", "bi-chevron-up")
+        this.iconDropDown.classList.remove("bi", "bi-chevron-down")
+        this.inputDropDown.classList.remove("d-none")
+        this.textDropDown.classList.add("d-none")
+    }
+
 
     closeTagList() {
-        for(let li of this.liTagList) {          
-            li.addEventListener("click", () => {
+        this.iconDropDown.addEventListener("click", (e) => {
+            
+            e.stopPropagation()
+            
+            if( Array.from(this.iconDropDown.classList).includes('bi-chevron-up')){
+                console.log("close")
+
                 this.tagList.classList.add("d-none")
                 this.dropDownContainer.style.width = "170px"
                 this.inputDropDown.classList.add("d-none")
                 this.textDropDown.classList.remove("d-none")
+                this.iconDropDown.classList.remove("bi", "bi-chevron-up")
+                this.iconDropDown.classList.add("bi", "bi-chevron-down")
 
-                let liTexContent = li.textContent
-                console.log(liTexContent)
+            }
+        })       
+    }
+
+    selectTagInList(){
+        let allLiTagList = document.querySelectorAll(`#${this.nameTag} .tag-list li`);
+        allLiTagList.forEach(element => {
+            element.addEventListener("click", (e) => {
+                this.tagTextContent = e.target.textContent
+                this.tagBuilderHtml() 
+                // this.filterTagAppareil() 
+                // this.filterTagUstensil()       
             })
+        });
+    }
+
+    tagBuilderHtml() {
+        const tagContainer = document.querySelector(".tag-container")
+        const divTag = document.createElement("div");
+        divTag.classList.add( this.colorTag, "rounded", "px-3", "py-2", "me-3", "mt-4", "tag-content")
+        tagContainer.appendChild(divTag)
+
+        const spanTag = document.createElement("span");
+        spanTag.classList.add("text-white", "fs-6", "me-3");
+        spanTag.textContent = this.tagTextContent;
+        divTag.appendChild(spanTag)
+
+        const iconTag = document.createElement("i");
+        iconTag.classList.add("bi", "bi-x-circle", "text-white");
+        divTag.appendChild(iconTag);
+
+        const article = document.getElementsByTagName("article");
+        // fermeture des tags
+        iconTag.addEventListener("click", () => {
+            divTag.remove()
+            Array.from(article).forEach(elem => elem.style.display = "")
+        })
+        
+    }
+
+
+    filterTagAppareil() {
+        const article = document.getElementsByTagName("article");
+              
+        for(let i = 0; i < RECIPES.length; i++) {
+            let appliance = RECIPES[i].appliance
+
+            if(appliance.includes(this.tagTextContent)) {
+                article[i].style.display = "";
+            } else {
+                article[i].style.display = "none";
+            }
         }
+    }
+
+    filterTagUstensil() {
+        const article = document.getElementsByTagName("article");
+            for(let recipe of RECIPES) {
+                for(let ustensil of recipe.ustensils) {
+                    if(ustensil.includes(this.tagTextContent.toLowerCase())) {
+                        Array.from(article).forEach(elem => elem.style.display = "")
+                        console.log(this.tagTextContent)
+                    } else {
+                        Array.from(article).forEach(elem => elem.style.display = "none")
+                    }
+                }
+            }
     }
 }
 
-let ingredients = new ListContent('ingredients')
-let appliances = new ListContent('appliances')
-let ustensils = new ListContent('ustensils')
 
 
 
-/* <div class="row">
-    <div class="col mt-5 d-flex">
-        <div class="bg-primary rounded px-3 py-2">
-            <span class="text-white fs-6 me-2">Ingrédients</span>
-            <i class="bi bi-x-circle text-white"></i>
-        </div>
-        <div class="bg-success rounded px-3 py-2 d-none">
-            <span class="text-white fs-6 me-2">Appareils</span>
-            <i class="bi bi-x-circle text-white"></i>
-        </div>
-        <div class="bg-danger rounded px-3 py-2 d-none">
-            <span class="text-white fs-6 me-2">Ustensiles</span>
-            <i class="bi bi-x-circle text-white"></i>
-        </div>
-    </div>
-</div> */
 
-
-
-//App.js
-// let tagIngredient = new TagSyteme();
-
-// FUNCTION ou CLASS
-// --------------------
-//Données différentes (ingredient, appliance, ustensil) - Ques des tableau
-    //Créer mes données pour chaque ITEM
-    function getIngretien(recipe) {
-        return ['coco', 'tomate']
-    }
-    
-    //FUNCTION ou CLASS (Diffrention le HTML avec des ID)
-        //Couleur différente
-        //Afficher le nom de la catégorie TAG
-        //Afficher list de tags
-        //Les fonctinnalités (Class, au clique add tag)
-    
-        //Systeme de recherche (ingredient, appliance, ustensil) ou faire un système qui cherche dans tout la donné d'une recette
-    
-        function TagGestion(MesDonneesTab , NameIdTag) {
-            const divElt = document.getElementById(NameIdTag)
-            // console.log(divElt , MesDonneesTab)
-        }
-        
-        class TagGestionClass{
-            constructor(MesDonneesTab , NameIdTag){
-                this.divElt = document.getElementById(NameIdTag)
-                this.MesDonneesTab = MesDonneesTab
-                // console.log(this.divElt , this.MesDonneesTab)
-            }
-        }
-    
-        //APP.JS Lancer les function
-        const mesIngredients = getIngretien()
-        TagGestion(mesIngredients, "ingredients")
-        const TagIngredients = new TagGestionClass(mesIngredients, "ingredients")
-        TagGestion(['blender'], "appareils")
-        const TagApp = new TagGestionClass(['blender'], "appareils")
     

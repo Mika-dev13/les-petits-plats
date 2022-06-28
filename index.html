@@ -32,20 +32,7 @@
     </div>
 
     <div class="row">
-        <div class="col mt-5 d-flex">
-            <div class="bg-primary rounded px-3 py-2">
-                <span class="text-white fs-6 me-2">Ingrédients</span>
-                <i class="bi bi-x-circle text-white"></i>
-            </div>
-            <div class="bg-success rounded px-3 py-2 d-none">
-                <span class="text-white fs-6 me-2">Appareils</span>
-                <i class="bi bi-x-circle text-white"></i>
-            </div>
-            <div class="bg-danger rounded px-3 py-2 d-none">
-                <span class="text-white fs-6 me-2">Ustensiles</span>
-                <i class="bi bi-x-circle text-white"></i>
-            </div>
-        </div>
+        <div class="tag-container col d-flex"></div>
     </div>
 
     <div class="row">
@@ -53,35 +40,35 @@
             
             <div id="ingredients" class="search-tag-container bg-primary me-3 px-2 rounded d-flex align-items-center position-relative text-white fs-5">
                 
-                <div class="search-tag-content position-relative d-flex justify-content-between align-items-center  w-100 h-100">
+                <div class="search-tag-content d-flex justify-content-between align-items-center  w-100 h-100">
                     <label for="ingredient" class="text-search-filter px-1">Ingrédients</label>
                     <input type="text" name="ingredient" id="ingredient" class="input-search-filter bg-transparent border-0 me-0 px-1 py-4 text-white w-100 d-none" placeholder="Rechercher un ingrédients"> 
                     <i class="bi bi-chevron-down"></i>
                 </div>
                        
-                <ul class="tag-list d-none bg-primary rounded p-3"></ul>
+                <ul class="tag-list d-none bg-primary rounded p-3" data-state = "close"></ul>
             </div>
 
             <div id="appliances" class="search-tag-container bg-danger me-3 px-2 rounded d-flex align-items-center position-relative text-white fs-5">
                 
-                <div class="search-tag-content position-relative d-flex justify-content-between align-items-center  w-100 h-100">
-                    <label for="appliances" class="text-search-filter px-1">Appareils</label>
-                    <input type="text" name="appliances" id="appliances" class="input-search-filter bg-transparent border-0 me-0 px-1 py-4 text-white w-100 d-none" placeholder="Rechercher un ingrédients"> 
+                <div class="search-tag-content d-flex justify-content-between align-items-center  w-100 h-100">
+                    <label for="appliance" class="text-search-filter px-1">Appareils</label>
+                    <input type="text" name="appliance" id="appliance" class="input-search-filter bg-transparent border-0 me-0 px-1 py-4 text-white w-100 d-none" placeholder="Rechercher un ingrédients"> 
                     <i class="bi bi-chevron-down"></i>
                 </div>
                        
-                <ul class="tag-list d-none bg-danger rounded p-3"></ul>
+                <ul class="tag-list d-none bg-danger rounded p-3" data-state = "close"></ul>
             </div>
 
             <div id="ustensils" class="search-tag-container bg-success me-3 px-2 rounded d-flex align-items-center position-relative text-white fs-5">
                 
-                <div class="search-tag-content position-relative d-flex justify-content-between align-items-center  w-100 h-100">
-                    <label for="ustensils" class="text-search-filter px-1">Ustensiles</label>
-                    <input type="text" name="ustensils" id="ustensils" class="input-search-filter bg-transparent border-0 me-0 px-1 py-4 text-white w-100 d-none" placeholder="Rechercher un ustensile"> 
+                <div class="search-tag-content d-flex justify-content-between align-items-center  w-100 h-100">
+                    <label for="ustensil" class="text-search-filter px-1">Ustensiles</label>
+                    <input type="text" name="ustensil" id="ustensil" class="input-search-filter bg-transparent border-0 me-0 px-1 py-4 text-white w-100 d-none" placeholder="Rechercher un ustensile"> 
                     <i class="bi bi-chevron-down"></i>
                 </div>
                        
-                <ul class="tag-list d-none bg-success rounded p-3"></ul>
+                <ul class="tag-list d-none bg-success rounded p-3" data-state = "close"></ul>
             </div>
 
         </div>
