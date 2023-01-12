@@ -1,98 +1,104 @@
-@import "../node_modules/bootstrap/scss/functions";
-@import "../node_modules/bootstrap/scss/variables";
-@import "../node_modules/bootstrap/scss/utilities";
+$primary: #3282f7;
+$success: #68d9a4;
+$danger: #ed6454;
 
+@import '../node_modules/bootstrap/scss/functions';
+@import '../node_modules/bootstrap/scss/variables';
+@import '../node_modules/bootstrap/scss/utilities';
 
-@import "../node_modules/bootstrap/scss/bootstrap.scss";
-
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
 
 .search-tag-container {
-    width: 170px;
-    height: 69px;
+  width: 500px;
+  height: 69px;
 }
 
-.search-tag-content, .text-search-filter {
-    cursor: pointer;
+.search-tag-content,
+.text-search-filter {
+  cursor: pointer;
 }
 
 .input-search-filter {
-    outline: none;
-    width: 170px;
-    height: 69px;
-    cursor: pointer;
+  outline: none;
+  width: 170px;
+  height: 69px;
+  cursor: pointer;
 }
 
 .input-search-filter::placeholder {
-    color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .tag-list {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px 20px;
-    position: absolute;
-    top: 63px;
-    left: 0;
-    z-index: 200;
-    width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px 20px;
+  position: absolute;
+  top: 63px;
+  left: 0;
+  z-index: 200;
+  width: 100%;
 }
 
 .tag-list li {
-    padding: 5px 10px;
-    list-style: none;
-    cursor: pointer;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    transition: background-color 0.2s ease-in-out;
+  padding: 5px 10px;
+  list-style: none;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .tag-list li:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 article {
-    margin-bottom: 2em;
+  margin-bottom: 2em;
 }
 
 .card {
-    position: relative;
-    height: 364px;
-    overflow: hidden;
-    cursor: pointer;
+  position: relative;
+  height: 364px;
+  overflow: hidden;
+  cursor: pointer;
 }
 
 .card::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 35px;
-    background: linear-gradient(180deg, rgba(248, 249, 250,0.5) 0%, rgba(248, 249, 250,1) 50%);
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 35px;
+  background: linear-gradient(
+    180deg,
+    rgba(248, 249, 250, 0.5) 0%,
+    rgba(248, 249, 250, 1) 50%
+  );
 }
 
 .card-img-top {
-    max-height: 174px;
-    object-fit: cover;
+  max-height: 174px;
+  object-fit: cover;
 }
 .recipe-description {
-    font-size: 12px;
-    line-height: 1.2;
+  font-size: 12px;
+  line-height: 1.2;
 }
 
 .paragraph_description {
-    display: -webkit-box;
+  display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 5;
   overflow: hidden;
 }
 
 .ingredients_list {
-    list-style: none;
-    font-size: 12px;
+  list-style: none;
+  font-size: 12px;
 }
 
 .display {
-    display: none;
+  display: none;
 }
-

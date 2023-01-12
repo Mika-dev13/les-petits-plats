@@ -1,67 +1,122 @@
-import { RECIPES } from "../data/recipes.js";
+import { RECIPES } from '../data/recipes.js'
+import displayCard from '../app.js'
 
-export function filter() {
+const searchBar = document.getElementById('search-input')
+const cardSection = document.querySelector('.card_section')
 
-    const searchBar = document.getElementById("search-input")
-    const recipeTitle = document.getElementsByTagName("h6");
-    const recipeDescription = document.getElementsByTagName("p")
+export function filter(ingredientsClass, appliancesClass, ustensilsClass) {
+  searchBar.addEventListener('input', () => {
+    // let newTabRecipes = []
 
-    searchBar.addEventListener("input", () => {
+    const userInput = searchBar.value.toLowerCase()
+    const userInputCount = userInput.length >= 3 ? userInput : null
 
-        const searchBarInput = searchBar.value.toUpperCase();
-        const searchBarInputCount = searchBarInput.length >=3 ? searchBarInput : null;
-        const article = document.getElementsByTagName("article");
+    if (userInputCount) {
+      // seach()
+      // render()
+      // for (let i = 0; i < RECIPES.length; i++) {
+      //   const recipeName = RECIPES[i].name.toLowerCase()
+      //   const recipeDescription = RECIPES[i].description.toLowerCase()
+      //   const recipeIngredients = JSON.stringify(
+      //     RECIPES[i].ingredients
+      //   ).toLowerCase()
+      //   if (
+      //     recipeName.includes(userInput) ||
+      //     recipeDescription.includes(userInput) ||
+      //     recipeIngredients.includes(userInput)
+      //   ) {
+      //     newTabRecipes.push(RECIPES[i])
+      //   }
+      // }
 
-        for(let i = 0; i < RECIPES.length; i++) {
-            
-            const recipeTitleText = recipeTitle[i].innerText.toUpperCase();
-            const recipeDescriptionText = recipeDescription[i].innerText.toUpperCase();
-            const recipeIngredientText = JSON.stringify(RECIPES[i].ingredients).toUpperCase();
-            
-            if(searchBarInputCount) {
-                
-                if(recipeTitleText.indexOf(searchBarInput) > -1 || recipeDescriptionText.indexOf(searchBarInput) > -1 || recipeIngredientText.indexOf(searchBarInput) > -1) {
-                    
-                    article[i].style.display = "";
-                } else {
-                    article[i].style.display = "none";
-                }
-            }
-            if(searchBarInput.length === 0) {
-                article[i].style.display = "";
-            }
-        }
-    });
+      console.log(search(userInput))
+
+      ingredientsClass.init(search())
+      appliancesClass.init(search())
+      ustensilsClass.init(search())
+      cardSection.innerHTML = ''
+      displayCard(newTabRecipes)
+    } else {
+      ingredientsClass.init(RECIPES)
+      appliancesClass.init(RECIPES)
+      ustensilsClass.init(RECIPES)
+      displayCard(RECIPES)
+    }
+  })
 }
 
-// export function filter() {
-//     const article = document.getElementsByTagName("article");
-//     const searchBar = document.getElementById("search-input")
-    
-//     searchBar.addEventListener("input", () => {
-        
-//         const searchBarInput = searchBar.value.toUpperCase();
-//         const searchBarInputCount = searchBarInput.length >=3 ? searchBarInput : null;
+function search(input) {
+  let newTabRecipes = []
+  for (let i = 0; i < RECIPES.length; i++) {
+    const recipeName = RECIPES[i].name.toLowerCase()
+    const recipeDescription = RECIPES[i].description.toLowerCase()
+    const recipeIngredients = JSON.stringify(
+      RECIPES[i].ingredients
+    ).toLowerCase()
+    if (
+      recipeName.includes(input) ||
+      recipeDescription.includes(input) ||
+      recipeIngredients.includes(input)
+    ) {
+      newTabRecipes.push(RECIPES[i])
+    }
+  }
+}
+//InputSearch() event input ( search() et render() )
+//TagSearchRecipe() envent add tag au click  ( récupére les tag + search() et render() )
 
-//         RECIPES.forEach((recipe, index) => {
-//             const recipeTitleText = recipe.name.toLocaleUpperCase();
-//             const recipeDescriptionText = recipe.description.toUpperCase();
-//             const recipeIngredientText = JSON.stringify(recipe.ingredients).toUpperCase();
-            
-//             if(searchBarInputCount) {
-                
-//                 if(recipeTitleText.indexOf(searchBarInput) > -1 || recipeDescriptionText.indexOf(searchBarInput) > -1 || recipeIngredientText.indexOf(searchBarInput) > -1) {
-//                     console.log(recipeTitleText)
-//                     article[index].style.display = "";
-//                 } else {
-//                     article[index].style.display = "none";
-//                 }  
-                
-//                 if(searchBarInput.length === 0) {
-//                     article[index].style.display = "";
-//                 }
-//             }
-//         })
-//     });
+//Search() de recherche seul qui n'est pas déclanché par un evenement (Input + tag)
+// for (let i = 0; i < RECIPES.length; i++) {
+//     const recipeName = RECIPES[i].name.toLowerCase()
+//     const recipeDescription = RECIPES[i].description.toLowerCase()
+//     const recipeIngredients = JSON.stringify(
+//       RECIPES[i].ingredients
+//     ).toLowerCase()
+//     if (
+//       recipeName.includes(userInput) ||
+//       recipeDescription.includes(userInput) ||
+//       recipeIngredients.includes(userInput)
+//     ) {
+//       newTabRecipes.push(RECIPES[i])
+//     }
+
+//Fillter TAg (Recuepre les tag via HTML)
+//Cho 10 -> 5
+//banane 5 -> 1 ou 0
+//   }
+
+//Render(newTabRecipes) Affichage (update list tag et recep)
+//   ingredientsClass.init(newTabRecipes)
+//   appliancesClass.init(newTabRecipes)
+//   ustensilsClass.init(newTabRecipes)
+//   cardSection.innerHTML = ''
+//   displayCard(newTabRecipes)
+// } else {
+//   ingredientsClass.init(RECIPES)
+//   appliancesClass.init(RECIPES)
+//   ustensilsClass.init(RECIPES)
+//   displayCard(RECIPES)
+
+// export function searchInLists(
+//   ingredientsClass,
+//   appliancesClass,
+//   ustensilsClass
+// ) {
+//   const ingredientsListInput = document.querySelector(`#ingredients-input`)
+//   const ingredientsList = ingredientsClass.dataIngredientList(RECIPES)
+
+//   console.log(ingredientsList)
+
+//   ingredientsListInput.addEventListener('input', (e) => {
+//     let newTabIngredients = []
+//     const userIngredientsInput = e.target.value
+
+//     for (let i = 0; i < ingredientsList.length; i++) {
+//       if (ingredientsList[i].includes(userIngredientsInput)) {
+//         newTabIngredients.push(ingredientsList[i])
+//       }
+//     }
+//     console.log(newTabIngredients)
+//     ingredientsClass.updateList(newTabIngredients)
+//   })
 // }
-

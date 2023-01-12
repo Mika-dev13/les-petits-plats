@@ -1,79 +1,28 @@
-import { RECIPES } from "./data/recipes.js";
-import { cardFactory } from "./components/card.js";
-import { filter } from "./utilities/search.js";
+import { RECIPES } from './data/recipes.js'
+import { cardFactory } from './components/card.js'
+import { filter } from './utilities/search.js'
 // import { displayInputTextDropDown } from "./utilities/tags.js";
 // import { displayTagList } from "./utilities/tags.js";
-import ListContent from "./utilities/tags.js";
+import ListContent from './utilities/tags.js'
 
-function displayCard(RECIPES) {
-    const cardSection = document.querySelector(".card_section");
-   
-    for(const recipe of RECIPES) {
-        const cardModel = cardFactory(recipe);
-        const cardDom = cardModel.getCardDom()
-        cardSection.appendChild(cardDom);
-    }
+export default function displayCard(RECIPES) {
+  const cardSection = document.querySelector('.card_section')
+
+  for (const recipe of RECIPES) {
+    const cardModel = cardFactory(recipe)
+    const cardDom = cardModel.getCardDom()
+    cardSection.appendChild(cardDom)
+  }
 }
 
 function init() {
-    displayCard(RECIPES)
-    filter()
-    let ingredients = new ListContent('ingredients')
-    let appliances = new ListContent('appliances')
-    let ustensils = new ListContent('ustensils')
+  displayCard(RECIPES)
+  const ingredientsClass = new ListContent('ingredients')
+  const appliancesClass = new ListContent('appliances')
+  const ustensilsClass = new ListContent('ustensils')
 
-    // displayInputTextDropDown()
-    // displayTagList()
+  filter(ingredientsClass, appliancesClass, ustensilsClass)
+  // searchInLists(ingredientsClass, appliancesClass, ustensilsClass)
 }
 
 init()
-
-
-
-
-// const ingTab = ['coco' , 'lait']
-
-// function tag(IDTag , nameTag , tagList = []){
-//     console.log("Tag ID = " + IDTag + " Nom catégorie tag = " + nameTag)
-
-//     let testVarFunc = "TOTO"
-
-//     afficheListTag(tagList ,testVarFunc)
-
-//     function afficheListTag(tagList, testVarFunc){
-//         for(const tag of tagList){
-//             console.log(tag + " " + testVarFunc)
-//         }
-//     }
-// }
-
-// tag('ingredient' , 'ingrédient' , ingTab)
-// tag('apperile' , 'apperile')
-// tag('ustensile' , 'ustensile', ingTab)
-
-// class TagPerso{
-//     constructor(IDTag , nameTag , tagList = []){
-//         this.IDTag = IDTag
-//         this.nameTag = nameTag
-//         this.tagList = tagList
-//         console.log("CLASS Tag ID = " + this.IDTag + " Nom catégorie tag = " + this.nameTag)
-//         this.affcherListTag()
-//         // this.init()
-//     }
-
-//     init(){
-//         //Je lance mes méthode(function) important au lancement
-        // console.log(this.IDTag)
-//     }
-    // renderHTML(){
-    //     //Create element pour creer HTML
-    // }
-//     affcherListTag(){
-//         for(const tag of this.tagList){
-//             console.log(tag)
-//         }
-//     }
-// }
-
-// const tagIngredient = new TagPerso('ingredient' , 'ingrédient' , ingTab);
-// const tagAppliance = new TagPerso('apperile' , 'apperile');
