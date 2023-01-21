@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body class="container">
+    <div class="alert alert-danger mt-5 mb-0 d-none" role="alert">
+      Aucune recette ne correspond à votre requête...
+    </div>
     <header>
       <div class="row">
         <nav class="col navbar navbar-expand-lg">
@@ -60,7 +63,7 @@
           <div
             class="search-tag-content d-flex justify-content-between align-items-center w-100 h-100"
           >
-            <label for="ingredient" class="text-search-filter px-1"
+            <label for="ingredients-input" class="text-search-filter px-1"
               >Ingrédients</label
             >
             <input
@@ -86,7 +89,7 @@
           <div
             class="search-tag-content d-flex justify-content-between align-items-center w-100 h-100"
           >
-            <label for="appliance" class="text-search-filter px-1"
+            <label for="appliances-input" class="text-search-filter px-1"
               >Appareils</label
             >
             <input
@@ -112,7 +115,7 @@
           <div
             class="search-tag-content d-flex justify-content-between align-items-center w-100 h-100"
           >
-            <label for="ustensil" class="text-search-filter px-1"
+            <label for="ustensils-input" class="text-search-filter px-1"
               >Ustensiles</label
             >
             <input
@@ -143,7 +146,9 @@
             </div> -->
       </div>
     </div>
-    <section class="row card_section"></section>
+    <section class="row card_section">
+      <h2 class="recipe-section-title">Recettes</h2>
+    </section>
 
     <script src="/scripts/app.js" type="module"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>

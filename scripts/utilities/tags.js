@@ -1,7 +1,7 @@
 import { RECIPES } from '../data/recipes.js'
 
 export default class ListContent {
-  constructor(nameTag) {
+  constructor(nameTag, TagSearchRecipe) {
     this.dropDownContainer = document.getElementById(nameTag)
     this.tagList = document.querySelector(`#${nameTag} ul`)
     this.searchTagContent = document.querySelector(
@@ -14,6 +14,7 @@ export default class ListContent {
       `#${nameTag} .text-search-filter`
     )
     this.iconDropDown = document.querySelector(`#${nameTag} i`)
+    this.TagSearchRecipe = TagSearchRecipe
 
     this.nameTag = nameTag
     this.dataList = []
@@ -35,8 +36,6 @@ export default class ListContent {
     this.render(tagsList)
     this.selectTagInList()
     this.displayList()
-    this.closeTagListWithChevron()
-    this.searchInTag()
   }
 
   getData(recipes) {
@@ -64,32 +63,18 @@ export default class ListContent {
   }
 
   searchInTag() {
-    // const ingredientsListInput = document.querySelector(`#ingredients-input`)
-    // const ingredientsList = ingredientsClass.dataIngredientList(RECIPES)
-
-    // this.inputDropDown
-
-    // console.log(ingredientsList)
-
     this.inputDropDown.addEventListener('input', (e) => {
       let newTabIngredients = []
-      const userIngredientsInput = e.target.value
-
-      //Tout mettre en minuscule piur faire la recherche
+      const userIngredientsInput = e.target.value.trim().toLowerCase()
+      console.log(userIngredientsInput)
 
       for (const tag of this.dataList) {
-        //
-        if (tag.includes(userIngredientsInput)) {
+        let tagTest = tag.toLowerCase()
+        if (tagTest.includes(userIngredientsInput)) {
           newTabIngredients.push(tag)
         }
       }
 
-      // for (let i = 0; i < ingredientsList.length; i++) {
-      // if (ingredientsList[i].includes(userIngredientsInput)) {
-      //   newTabIngredients.push(ingredientsList[i])
-      // }
-      // }
-      console.log(newTabIngredients)
       this.updateTag(newTabIngredients)
     })
   }
@@ -99,7 +84,7 @@ export default class ListContent {
     for (let recipe of recipesList) {
       for (let ingredient of recipe.ingredients) {
         let strIngredient = ingredient.ingredient
-        let strIngredientUppercase = this.toStrUppercase(strIngredient)
+        let strIngredientUppercase = this.toFormatString(strIngredient)
         arrayIngredient.push(strIngredientUppercase)
       }
     }
@@ -111,7 +96,7 @@ export default class ListContent {
     let arrayAppliance = []
     for (let recipe of recipesList) {
       let strAppliance = recipe.appliance
-      let strApplianceUppercase = this.toStrUppercase(strAppliance)
+      let strApplianceUppercase = this.toFormatString(strAppliance)
       arrayAppliance.push(strApplianceUppercase)
     }
     let arrayApplianceFiltered = [...new Set(arrayAppliance)]
@@ -122,7 +107,7 @@ export default class ListContent {
     let arrayUstensil = []
     for (let recipe of recipesList) {
       for (let ustensil of recipe.ustensils) {
-        let strUstensilUppercase = this.toStrUppercase(ustensil)
+        let strUstensilUppercase = this.toFormatString(ustensil)
 
         arrayUstensil.push(strUstensilUppercase)
       }
@@ -131,7 +116,7 @@ export default class ListContent {
     return arrayUstensilFiltered.sort()
   }
 
-  toStrUppercase(str) {
+  toFormatString(str) {
     // Suprime les accents
     let strNormal = str.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     return (
@@ -207,8 +192,8 @@ export default class ListContent {
       element.addEventListener('click', (e) => {
         this.tagTextContent = e.target.textContent
         this.tagBuilderHtml()
-        // this.filterTagAppareil()
-        // this.filterTagUstensil()
+
+        this.TagSearchRecipe()
       })
     })
   }
@@ -240,6 +225,7 @@ export default class ListContent {
     // fermeture des tags
     iconTag.addEventListener('click', () => {
       divTag.remove()
+      this.TagSearchRecipe()
       Array.from(article).forEach((elem) => (elem.style.display = ''))
     })
   }
