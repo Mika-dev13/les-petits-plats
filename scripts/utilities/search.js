@@ -4,13 +4,9 @@ import displayCard from '../app.js'
 const searchBar = document.getElementById('search-input')
 const alert = document.querySelector('.alert')
 
-// const tagsIngredient = document.querySelectorAll('.tag-container .bg-primary')
-// const tagsAppliance = document.querySelectorAll('.tag-container .bg-danger')
-// const tagsUstensil = document.querySelectorAll('.tag-container .bg-success')
-
 export function filter(ingredientsClass, appliancesClass, ustensilsClass) {
   searchBar.addEventListener('input', () => {
-    const userInput = searchBar.value.toLowerCase()
+    const userInput = toFormatString(searchBar.value)
     const userInputCount = userInput.length >= 3 ? userInput : null
 
     if (userInputCount) {
@@ -34,14 +30,14 @@ export function filter(ingredientsClass, appliancesClass, ustensilsClass) {
   })
 }
 
-// function toFormatString(str) {
-//   // Suprime les accents
-//   let strNormal = str
-//     .normalize('NFD')
-//     .replace(/[\u0300-\u036f]/g, '')
-//     .toLowerCase()
-//   return strNormal
-// }
+function toFormatString(str) {
+  // Suprime les accents
+  let strNormal = str
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+  return strNormal
+}
 
 function search(value) {
   let newTabRecipes = []
@@ -51,9 +47,11 @@ function search(value) {
 
     // });
     for (const recipe of RECIPES) {
-      const recipeName = recipe.name.toLowerCase()
-      const recipeDescription = recipe.description.toLowerCase()
-      const recipeIngredients = JSON.stringify(recipe.ingredients).toLowerCase()
+      const recipeName = toFormatString(recipe.name)
+      const recipeDescription = toFormatString(recipe.description)
+      const recipeIngredients = toFormatString(
+        JSON.stringify(recipe.ingredients)
+      )
       console.log(recipeIngredients)
       if (
         recipeName.includes(value) ||
@@ -72,13 +70,16 @@ function search(value) {
   const tagsUstensil = document.querySelectorAll('.tag-container .bg-success')
 
   if (tagsIngredient.length > 0) {
-    tagsIngredient.forEach((tag, index) => {
-      tag = tag.querySelector('span').textContent.toLowerCase()
+    tagsIngredient.forEach((tag) => {
+      tag = tag.querySelector('span').textContent
       let newTagTab = []
       for (const recipe of newTabRecipes) {
         for (let ingredient of recipe.ingredients) {
-          let strIngredient = ingredient.ingredient.toLowerCase()
-          if (!newTagTab.includes(recipe) && strIngredient === tag) {
+          let strIngredient = toFormatString(ingredient.ingredient)
+          if (
+            !newTagTab.includes(recipe) &&
+            strIngredient === toFormatString(tag)
+          ) {
             newTagTab.push(recipe)
           }
         }
@@ -91,12 +92,15 @@ function search(value) {
   //APPREIL
   if (tagsAppliance.length > 0) {
     tagsAppliance.forEach((tag) => {
-      tag = tag.querySelector('span').textContent.toLowerCase()
+      tag = tag.querySelector('span').textContent
 
       let newTagTab = []
       for (const recipe of newTabRecipes) {
-        let strAppliance = recipe.appliance.toLowerCase()
-        if (!newTagTab.includes(recipe) && strAppliance === tag) {
+        let strAppliance = toFormatString(recipe.appliance)
+        if (
+          !newTagTab.includes(recipe) &&
+          strAppliance === toFormatString(tag)
+        ) {
           newTagTab.push(recipe)
         }
       }
@@ -107,13 +111,16 @@ function search(value) {
   //USTENSIEL
   if (tagsUstensil.length > 0) {
     tagsUstensil.forEach((tag) => {
-      tag = tag.querySelector('span').textContent.toLowerCase()
+      tag = tag.querySelector('span').textContent
 
       let newTagTab = []
       for (const recipe of newTabRecipes) {
         for (let ustensil of recipe.ustensils) {
-          let strUstensil = ustensil.toLowerCase()
-          if (!newTagTab.includes(recipe) && strUstensil === tag) {
+          let strUstensil = toFormatString(ustensil)
+          if (
+            !newTagTab.includes(recipe) &&
+            strUstensil === toFormatString(tag)
+          ) {
             newTagTab.push(recipe)
           }
         }
@@ -127,7 +134,7 @@ function search(value) {
 
 export function TagSearchRecipe() {
   const searchBar = document.getElementById('search-input')
-  const userInput = searchBar.value.toLowerCase()
+  const userInput = toFormatString(searchBar.value)
   const newRecipes = search(userInput)
 
   displayCard(newRecipes)
@@ -150,7 +157,3 @@ function renderSearch(
     displayCard(recipes)
   }
 }
-
-// User remplie input
-//Si supérieur a 3 -> Filtre recette -> afficher recette
-//Si inférieur a 3 -> attendre que l'user est écrit plus

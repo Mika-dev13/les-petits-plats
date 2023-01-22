@@ -66,11 +66,16 @@ export default class ListContent {
     this.inputDropDown.addEventListener('input', (e) => {
       let newTabIngredients = []
       const userIngredientsInput = e.target.value.trim().toLowerCase()
-      console.log(userIngredientsInput)
 
       for (const tag of this.dataList) {
         let tagTest = tag.toLowerCase()
-        if (tagTest.includes(userIngredientsInput)) {
+        if (
+          tagTest.includes(
+            userIngredientsInput
+              .normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '')
+          )
+        ) {
           newTabIngredients.push(tag)
         }
       }
@@ -191,6 +196,9 @@ export default class ListContent {
     allLiTagList.forEach((element) => {
       element.addEventListener('click', (e) => {
         this.tagTextContent = e.target.textContent
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+
         this.tagBuilderHtml()
 
         this.TagSearchRecipe()
