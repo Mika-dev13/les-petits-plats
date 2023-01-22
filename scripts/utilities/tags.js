@@ -68,9 +68,9 @@ export default class ListContent {
       const userIngredientsInput = e.target.value.trim().toLowerCase()
 
       for (const tag of this.dataList) {
-        let tagTest = tag.toLowerCase()
+        let tagElement = tag.toLowerCase()
         if (
-          tagTest.includes(
+          tagElement.includes(
             userIngredientsInput
               .normalize('NFD')
               .replace(/[\u0300-\u036f]/g, '')
