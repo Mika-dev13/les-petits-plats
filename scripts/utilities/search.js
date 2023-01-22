@@ -43,16 +43,11 @@ function search(value) {
   let newTabRecipes = []
 
   if (value) {
-    // RECIPES.forEach(recipe => {
+    RECIPES.forEach((recipe) => {
+      const recipeName = recipe.name.toLowerCase()
+      const recipeDescription = recipe.description.toLowerCase()
+      const recipeIngredients = JSON.stringify(recipe.ingredients).toLowerCase()
 
-    // });
-    for (const recipe of RECIPES) {
-      const recipeName = toFormatString(recipe.name)
-      const recipeDescription = toFormatString(recipe.description)
-      const recipeIngredients = toFormatString(
-        JSON.stringify(recipe.ingredients)
-      )
-      console.log(recipeIngredients)
       if (
         recipeName.includes(value) ||
         recipeDescription.includes(value) ||
@@ -60,7 +55,7 @@ function search(value) {
       ) {
         newTabRecipes.push(recipe)
       }
-    }
+    })
   } else {
     newTabRecipes = RECIPES
   }
