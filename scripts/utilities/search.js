@@ -1,5 +1,6 @@
 import { RECIPES } from '../data/recipes.js'
 import displayCard from '../app.js'
+import ListContent from './tags.js'
 
 const searchBar = document.getElementById('search-input')
 const alert = document.querySelector('.alert')
@@ -30,8 +31,8 @@ export function filter(ingredientsClass, appliancesClass, ustensilsClass) {
   })
 }
 
+// Suprime les accents
 function toFormatString(str) {
-  // Suprime les accents
   let strNormal = str
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
@@ -64,6 +65,7 @@ function search(value) {
   const tagsAppliance = document.querySelectorAll('.tag-container .bg-danger')
   const tagsUstensil = document.querySelectorAll('.tag-container .bg-success')
 
+  //INGREDIENT
   if (tagsIngredient.length > 0) {
     tagsIngredient.forEach((tag) => {
       tag = tag.querySelector('span').textContent
@@ -84,7 +86,7 @@ function search(value) {
     })
   }
 
-  //APPREIL
+  //APPAREIL
   if (tagsAppliance.length > 0) {
     tagsAppliance.forEach((tag) => {
       tag = tag.querySelector('span').textContent
@@ -103,7 +105,7 @@ function search(value) {
     })
   }
 
-  //USTENSIEL
+  //USTENSIL
   if (tagsUstensil.length > 0) {
     tagsUstensil.forEach((tag) => {
       tag = tag.querySelector('span').textContent
@@ -127,12 +129,16 @@ function search(value) {
   return newTabRecipes
 }
 
-export function TagSearchRecipe() {
+export function tagSearchRecipe() {
   const searchBar = document.getElementById('search-input')
   const userInput = toFormatString(searchBar.value)
   const newRecipes = search(userInput)
 
-  displayCard(newRecipes)
+  const ingredientsClass = new ListContent('ingredients', tagSearchRecipe)
+  const appliancesClass = new ListContent('appliances', tagSearchRecipe)
+  const ustensilsClass = new ListContent('ustensils', tagSearchRecipe)
+
+  renderSearch(newRecipes, ingredientsClass, appliancesClass, ustensilsClass)
 }
 
 function renderSearch(
