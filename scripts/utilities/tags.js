@@ -1,7 +1,7 @@
 import { RECIPES } from '../data/recipes.js'
 
 export default class ListContent {
-  constructor(nameTag, TagSearchRecipe) {
+  constructor(nameTag, tagSearchRecipe) {
     this.dropDownContainer = document.getElementById(nameTag)
     this.tagList = document.querySelector(`#${nameTag} ul`)
     this.searchTagContent = document.querySelector(
@@ -15,7 +15,7 @@ export default class ListContent {
     )
     this.iconDropDown = document.querySelector(`#${nameTag} i`)
     this.document = document
-    this.TagSearchRecipe = TagSearchRecipe
+    this.tagSearchRecipe = tagSearchRecipe
 
     this.nameTag = nameTag
     this.dataList = []
@@ -202,7 +202,7 @@ export default class ListContent {
 
         this.tagBuilderHtml()
 
-        this.TagSearchRecipe()
+        this.tagSearchRecipe()
       })
     })
   }
@@ -234,7 +234,7 @@ export default class ListContent {
     // fermeture des tags
     iconTag.addEventListener('click', () => {
       divTag.remove()
-      this.TagSearchRecipe()
+      this.tagSearchRecipe()
       Array.from(article).forEach((elem) => (elem.style.display = ''))
     })
   }

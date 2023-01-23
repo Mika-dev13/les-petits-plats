@@ -1,6 +1,6 @@
 import { RECIPES } from './data/recipes.js'
 import { cardFactory } from './components/card.js'
-import { filter, TagSearchRecipe } from './utilities/search.js'
+import { filter, tagSearchRecipe } from './utilities/search.js'
 import ListContent from './utilities/tags.js'
 
 export default function displayCard(RECIPES) {
@@ -16,9 +16,9 @@ export default function displayCard(RECIPES) {
 
 function init() {
   displayCard(RECIPES)
-  const ingredientsClass = new ListContent('ingredients', TagSearchRecipe)
-  const appliancesClass = new ListContent('appliances', TagSearchRecipe)
-  const ustensilsClass = new ListContent('ustensils', TagSearchRecipe)
+  const ingredientsClass = new ListContent('ingredients', tagSearchRecipe)
+  const appliancesClass = new ListContent('appliances', tagSearchRecipe)
+  const ustensilsClass = new ListContent('ustensils', tagSearchRecipe)
 
   filter(ingredientsClass, appliancesClass, ustensilsClass)
 }

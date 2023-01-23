@@ -31,8 +31,8 @@ export function filter(ingredientsClass, appliancesClass, ustensilsClass) {
   })
 }
 
+// Suprime les accents
 function toFormatString(str) {
-  // Suprime les accents
   let strNormal = str
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
@@ -50,7 +50,6 @@ function search(value) {
       const recipeIngredients = toFormatString(
         JSON.stringify(recipe.ingredients)
       )
-      console.log(recipeIngredients)
       if (
         recipeName.includes(value) ||
         recipeDescription.includes(value) ||
@@ -131,16 +130,15 @@ function search(value) {
   return newTabRecipes
 }
 
-export function TagSearchRecipe() {
+export function tagSearchRecipe() {
   const searchBar = document.getElementById('search-input')
   const userInput = toFormatString(searchBar.value)
   const newRecipes = search(userInput)
 
-  const ingredientsClass = new ListContent('ingredients', TagSearchRecipe)
-  const appliancesClass = new ListContent('appliances', TagSearchRecipe)
-  const ustensilsClass = new ListContent('ustensils', TagSearchRecipe)
+  const ingredientsClass = new ListContent('ingredients', tagSearchRecipe)
+  const appliancesClass = new ListContent('appliances', tagSearchRecipe)
+  const ustensilsClass = new ListContent('ustensils', tagSearchRecipe)
 
-  // displayCard(newRecipes)
   renderSearch(newRecipes, ingredientsClass, appliancesClass, ustensilsClass)
 }
 
