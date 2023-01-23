@@ -14,6 +14,7 @@ export default class ListContent {
       `#${nameTag} .text-search-filter`
     )
     this.iconDropDown = document.querySelector(`#${nameTag} i`)
+    this.document = document
     this.TagSearchRecipe = TagSearchRecipe
 
     this.nameTag = nameTag

@@ -1,5 +1,3 @@
-// import { RECIPES } from "../data/recipes.js";
-
 export function cardFactory(data) {
   const { name, time, description, ingredients } = data
 

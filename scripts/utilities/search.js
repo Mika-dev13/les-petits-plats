@@ -1,5 +1,6 @@
 import { RECIPES } from '../data/recipes.js'
 import displayCard from '../app.js'
+import ListContent from './tags.js'
 
 const searchBar = document.getElementById('search-input')
 const alert = document.querySelector('.alert')
@@ -43,9 +44,6 @@ function search(value) {
   let newTabRecipes = []
 
   if (value) {
-    // RECIPES.forEach(recipe => {
-
-    // });
     for (const recipe of RECIPES) {
       const recipeName = toFormatString(recipe.name)
       const recipeDescription = toFormatString(recipe.description)
@@ -69,6 +67,7 @@ function search(value) {
   const tagsAppliance = document.querySelectorAll('.tag-container .bg-danger')
   const tagsUstensil = document.querySelectorAll('.tag-container .bg-success')
 
+  //INGREDIENT
   if (tagsIngredient.length > 0) {
     tagsIngredient.forEach((tag) => {
       tag = tag.querySelector('span').textContent
@@ -89,7 +88,7 @@ function search(value) {
     })
   }
 
-  //APPREIL
+  //APPAREIL
   if (tagsAppliance.length > 0) {
     tagsAppliance.forEach((tag) => {
       tag = tag.querySelector('span').textContent
@@ -108,7 +107,7 @@ function search(value) {
     })
   }
 
-  //USTENSIEL
+  //USTENSIL
   if (tagsUstensil.length > 0) {
     tagsUstensil.forEach((tag) => {
       tag = tag.querySelector('span').textContent
@@ -137,7 +136,12 @@ export function TagSearchRecipe() {
   const userInput = toFormatString(searchBar.value)
   const newRecipes = search(userInput)
 
-  displayCard(newRecipes)
+  const ingredientsClass = new ListContent('ingredients', TagSearchRecipe)
+  const appliancesClass = new ListContent('appliances', TagSearchRecipe)
+  const ustensilsClass = new ListContent('ustensils', TagSearchRecipe)
+
+  // displayCard(newRecipes)
+  renderSearch(newRecipes, ingredientsClass, appliancesClass, ustensilsClass)
 }
 
 function renderSearch(
