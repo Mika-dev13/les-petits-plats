@@ -9,7 +9,7 @@ export function cardFactory(data) {
     divCard.classList.add('card')
 
     const imgCard = document.createElement('img')
-    imgCard.setAttribute('src', '/assets/dummy_600x400_ffffff_cccccc.png')
+    imgCard.setAttribute('src', './assets/dummy_600x400_ffffff_cccccc.png')
     imgCard.setAttribute('alt', 'plats')
     imgCard.classList.add('card-img-top')
 
