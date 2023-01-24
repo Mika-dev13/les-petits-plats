@@ -23,7 +23,7 @@ export function cardFactory(data) {
       'justify-content-between'
     )
 
-    const titleRecipe = document.createElement('h6')
+    const titleRecipe = document.createElement('p')
     titleRecipe.classList.add('col-6', 'pt-2', 'recipe-title')
     titleRecipe.textContent = `${name}`
 
