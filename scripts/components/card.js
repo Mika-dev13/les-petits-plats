@@ -31,7 +31,7 @@ export function cardFactory(data) {
     divClock.classList.add('clock', 'd-flex', 'align-items-center')
 
     const imgClock = document.createElement('img')
-    imgClock.setAttribute('src', '/assets/clock.svg')
+    imgClock.setAttribute('src', './assets/clock.svg')
     imgClock.setAttribute('alt', 'horloge')
 
     const timeText = document.createElement('span')
